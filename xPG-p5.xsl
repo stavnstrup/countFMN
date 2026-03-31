@@ -3,28 +3,25 @@
                 xmlns:saxon="http://saxon.sf.net/"
                 extension-element-prefixes="saxon"
                 exclude-result-prefixes="xsl"
-                version='2.0'>
+                version='1.1'>
 
-<xsl:output indent="yes" saxon:next-in-chain="xPG-p4.xsl"/>
+<xsl:output indent="yes" saxon:next-in-chain="xPG-p6.xsl"/>
 
 <!--
 <xsl:output indent="yes" />
 -->
 
-<xsl:template match="profilegroup">
-  <profilegroup>
-    <xsl:apply-templates select="@*"/>
-    <xsl:apply-templates select="//profile"/>
-  </profilegroup>
-</xsl:template>
+<!-- Delete duplicate profiles-->
 
-<!-- Flatten profile tree -->
 
 <xsl:template match="profile">
-  <profile>
-    <xsl:apply-templates select="@*"/>
-    <xsl:apply-templates select="profilestandard"/>
-  </profile>
+  <xsl:variable name="myid" select="@id"/>
+  <xsl:choose>
+    <xsl:when test="preceding-sibling::profile[@id=$myid]"/>
+    <xsl:otherwise>
+      <xsl:copy-of select="."/>
+    </xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 

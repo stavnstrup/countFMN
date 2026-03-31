@@ -5,26 +5,47 @@
                 exclude-result-prefixes="xsl"
                 version='2.0'>
 
-<xsl:output method="text" />
+<xsl:output indent="yes" saxon:next-in-chain="xPG-p5.xsl"/>
+<!--
+
+<xsl:output indent="yes" />
+-->
+
+<!-- Sort profiles, profilestandards and standards and remove profiles with no standards -->
 
 <xsl:template match="profilegroup">
-<xsl:text>Profile ID,Profile Title,Group,Obligation, STD ID,STD Title,STD Pubnum&#x0A;</xsl:text>
-<xsl:apply-templates select="//standard"/>
+  <profilegroup>
+    <!-- Sort profiles by title -->
+    <xsl:apply-templates>
+      <xsl:sort select="@title"/>
+    </xsl:apply-templates>
+  </profilegroup>
 </xsl:template>
 
-<xsl:template match="standard">
-<xsl:value-of select="../../@id"/><xsl:text>,</xsl:text>
-<xsl:text>"</xsl:text><xsl:value-of select="../../@title"/><xsl:text>",</xsl:text>
-<xsl:apply-templates select=".."/><xsl:text>,</xsl:text>
-<xsl:value-of select="../@obligation"/><xsl:text>,</xsl:text>
-<xsl:value-of select="@nisp-identifier"/><xsl:text>,</xsl:text>
-<xsl:text>"</xsl:text><xsl:value-of select="@title"/><xsl:text>",</xsl:text>
-<xsl:value-of select="@pubnum"/><xsl:text></xsl:text>
-<xsl:text>&#x0A;</xsl:text>
+
+<xsl:template match="profile[not(child::profilestandard)]"/>
+
+
+<xsl:template match="profile">
+  <profile>
+    <xsl:apply-templates select="@*"/>
+    <!-- Sort profilestandards by title -->
+    <xsl:apply-templates>
+      <xsl:sort select="@title"/>
+    </xsl:apply-templates>
+  </profile>
 </xsl:template>
 
+<!-- We sort standards by pubnum because that is the attribute FMN profiles use.
+     However, we export the compoundpubnum because that includes the year of publication -->
 <xsl:template match="profilestandard">
-<xsl:number from="profilestandard"/>
+  <profilestandard>
+    <xsl:apply-templates select="@*"/>
+    <!-- Sort standards by publication number-->
+    <xsl:apply-templates>
+      <xsl:sort select="@pubnum"/> 
+    </xsl:apply-templates>
+  </profilestandard>
 </xsl:template>
 
 

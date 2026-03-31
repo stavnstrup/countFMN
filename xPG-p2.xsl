@@ -6,8 +6,8 @@
                 version='2.0'>
 
 <xsl:output indent="yes" saxon:next-in-chain="xPG-p3.xsl"/>
-
 <!--
+
 <xsl:output indent="yes" />
 -->
 

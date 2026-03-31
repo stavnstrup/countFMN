@@ -7,20 +7,19 @@
 
 <xsl:output method="text" />
 
-<xsl:template match="fmnprofile">
-<xsl:text>NISP vs. FMN, Profile ID,Profile Title,Group,Obligation, STD ID,STD Title,STD Pubnum&#x0A;</xsl:text>
+<xsl:template match="profilegroup">
+<xsl:text>Profile ID,Profile Title,Group,Obligation, STD ID,STD Title,STD Compound Pubnum&#x0A;</xsl:text>
 <xsl:apply-templates select="//standard"/>
 </xsl:template>
 
 <xsl:template match="standard">
-<xsl:text>--,</xsl:text>
 <xsl:value-of select="../../@id"/><xsl:text>,</xsl:text>
 <xsl:text>"</xsl:text><xsl:value-of select="../../@title"/><xsl:text>",</xsl:text>
 <xsl:apply-templates select=".."/><xsl:text>,</xsl:text>
 <xsl:value-of select="../@obligation"/><xsl:text>,</xsl:text>
-<xsl:text>"N/A",</xsl:text>
+<xsl:value-of select="@nisp-identifier"/><xsl:text>,</xsl:text>
 <xsl:text>"</xsl:text><xsl:value-of select="@title"/><xsl:text>",</xsl:text>
-<xsl:value-of select="@fmn-identifier"/><xsl:text></xsl:text>
+<xsl:value-of select="@compoundpubnum"/><xsl:text></xsl:text>
 <xsl:text>&#x0A;</xsl:text>
 </xsl:template>
 

@@ -25,6 +25,7 @@
 
 <xsl:template match="am:element">
   <xsl:variable name="stereotype" select="am:properties/am:property[@propertyDefinitionRef='s5524-stereotype']/am:value"/>
+  <xsl:variable name="compoundpubnum" select="am:properties/am:property[@propertyDefinitionRef='nisp-compoundPubnum']/am:value"/>
   <element>
     <xsl:attribute name="nisp-identifier">
       <xsl:value-of select="am:properties/am:property[@propertyDefinitionRef='nisp-identifier']/am:value"/>
@@ -42,7 +43,7 @@
       <xsl:value-of select="am:properties/am:property[@propertyDefinitionRef='nisp-pubnum']/am:value"/>
     </xsl:attribute>
     <xsl:attribute name="compoundpubnum">
-      <xsl:value-of select="am:properties/am:property[@propertyDefinitionRef='nisp-compoundPubnum']/am:value"/>
+      <xsl:value-of select="replace($compoundpubnum,'&amp;nbsp;', ' ')"/>
     </xsl:attribute>
     <xsl:attribute name="uuid">
       <xsl:value-of select="am:properties/am:property[@propertyDefinitionRef='s5524-UUID']/am:value"/>
