@@ -14,7 +14,7 @@
 <xsl:template match="profilegroup">
   <profilegroup>
     <xsl:apply-templates select="@*"/>
-    <xsl:apply-templates select="//profile"/>
+    <xsl:apply-templates select="//profile[@type!='Profile node']"/>
   </profilegroup>
 </xsl:template>
 

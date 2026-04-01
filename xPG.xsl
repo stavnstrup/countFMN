@@ -36,6 +36,9 @@
     <xsl:attribute name="stereotype">
       <xsl:value-of select="$stereotype"/>
     </xsl:attribute>
+    <xsl:attribute name="profiletype">
+      <xsl:value-of select="am:properties/am:property[@propertyDefinitionRef='nisp-profileType']/am:value"/>
+    </xsl:attribute>
     <xsl:attribute name="identifier">
       <xsl:value-of select="@identifier"/>
     </xsl:attribute>

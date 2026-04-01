@@ -40,7 +40,7 @@
 
 <xsl:template match="element[@stereotype='Profile']">
   <xsl:variable name="myid" select="@identifier"/>
-  <profile id="{@nisp-identifier}" title="{@title}">
+  <profile id="{@nisp-identifier}" title="{@title}" type="{@profiletype}">
     <xsl:apply-templates select="//relationship[(@stereotype='is composed of') and (@source=$myid)]" mode="getchildren"/>
   </profile>
 </xsl:template>
